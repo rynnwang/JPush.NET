@@ -75,12 +75,12 @@ namespace Beyova
                 if ((request.Platform & PushPlatform.Android) == PushPlatform.Android)
                 {
                     result.Notification.AndroidNotification = new AndroidNotificationParameters
-                       {
-                           Alert = request.Message.Content,
-                           BuilderId = request.Message.BuilderId,
-                           CustomizedValues = request.Message.CustomizedValue,
-                           Title = request.Message.PushTitle
-                       };
+                    {
+                        Alert = request.Message.Content,
+                        BuilderId = request.Message.BuilderId,
+                        CustomizedValues = request.Message.CustomizedValue,
+                        Title = request.Message.PushTitle
+                    };
                 }
                 if ((request.Platform & PushPlatform.iOS) == PushPlatform.iOS)
                 {
