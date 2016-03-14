@@ -301,12 +301,12 @@ namespace Beyova.JPush.V3
                     throw new ArgumentException("Both Notification and AppMessage are null.");
                 }
 
-                if (request.Notification == null)
+                if (request.Notification != null)
                 {
                     jsonObject.Add(new JProperty("notification", JObject.FromObject(request.Notification)));
                 }
 
-                if (request.AppMessage == null)
+                if (request.AppMessage != null)
                 {
                     jsonObject.Add(new JProperty("message", JObject.FromObject(request.AppMessage)));
                 }
@@ -381,7 +381,7 @@ namespace Beyova.JPush.V3
                     result.Add("override_msg_id", request.OverrideMessageId);
                 }
 
-                result.Add("apns_production", (!(request.IsTestEnvironment ?? this.IsTestEnvironment ?? false)).ToString());
+                result.Add("apns_production", !(request.IsTestEnvironment ?? this.IsTestEnvironment ?? false));
             }
 
             return result;
