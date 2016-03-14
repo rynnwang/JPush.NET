@@ -58,6 +58,6 @@ namespace Beyova.JPush.V3
         /// Default: false.
         /// </summary>
         /// <value><c>true</c> if this instance is test; otherwise, <c>false</c>.</value>
-        public bool IsTestEnvironment { get; set; }
+        public bool? IsTestEnvironment { get; set; }
     }
 }

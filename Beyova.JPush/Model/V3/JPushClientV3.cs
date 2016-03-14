@@ -144,19 +144,40 @@ namespace Beyova.JPush.V3
             protected set;
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is test environment.
+        /// </summary>
+        /// <value><c>null</c> if [is test environment] contains no value, <c>true</c> if [is test environment]; otherwise, <c>false</c>.</value>
+        public bool? IsTestEnvironment
+        {
+            get;
+            protected set;
+        }
+
         #endregion
 
         #region Constructor
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JPushClientV3" /> class.
+        /// </summary>
+        /// <param name="connectionString">The connection string.</param>
+        public JPushClientV3(ConnectionString connectionString)
+                    : this(connectionString?.AppKey, connectionString?.MasterSecret, connectionString?.IsTestEnvironment)
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JPushClient" /> class.
         /// </summary>
         /// <param name="appKey">The application key.</param>
         /// <param name="masterSecret">The master secret.</param>
-        public JPushClientV3(string appKey, string masterSecret)
+        /// <param name="isTestEnvironment">The is test environment.</param>
+        public JPushClientV3(string appKey, string masterSecret, bool? isTestEnvironment = null)
         {
             this.AppKey = appKey;
             this.MasterSecret = masterSecret;
+            this.IsTestEnvironment = isTestEnvironment;
         }
 
         #endregion
@@ -199,7 +220,7 @@ namespace Beyova.JPush.V3
             }
             catch (Exception ex)
             {
-                throw new InvalidOperationException("Failed to send push message.", ex);
+                throw ex.Handle("Failed to send push message.");
             }
             finally
             {
@@ -246,7 +267,7 @@ namespace Beyova.JPush.V3
                 }
                 catch (Exception ex)
                 {
-                    ex.Handle("Failed to QueryPushMessageStatus.");
+                    throw ex.Handle("Failed to QueryPushMessageStatus.");
                 }
             }
 
@@ -360,7 +381,7 @@ namespace Beyova.JPush.V3
                     result.Add("override_msg_id", request.OverrideMessageId);
                 }
 
-                result.Add("apns_production", (!request.IsTestEnvironment).ToString());
+                result.Add("apns_production", (!(request.IsTestEnvironment ?? this.IsTestEnvironment ?? false)).ToString());
             }
 
             return result;

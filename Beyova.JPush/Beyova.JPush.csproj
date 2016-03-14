@@ -39,7 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Beyova.Common, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d55e8b6a979ee1b5, processorArchitecture=MSIL">
-      <HintPath>..\packages\Beyova.Common.2.30.0\lib\Beyova.Common.dll</HintPath>
+      <HintPath>..\packages\Beyova.Common.2.31.2\lib\Beyova.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extension.cs" />
+    <Compile Include="Model\V3\ConnectionString.cs" />
     <Compile Include="Model\V3\Audience.cs" />
     <Compile Include="Model\V3\AppMessage.cs" />
     <Compile Include="Model\V3\Notification.cs" />
