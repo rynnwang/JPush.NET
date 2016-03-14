@@ -34,6 +34,13 @@ namespace Beyova.JPush.V3
         public bool? IsTestEnvironment { get; set; }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="ConnectionString"/> class.
+        /// </summary>
+        public ConnectionString()
+        {
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ConnectionString" /> class.
         /// </summary>
         /// <param name="appKey">The application key.</param>
@@ -43,6 +50,7 @@ namespace Beyova.JPush.V3
         {
             this.AppKey = appKey;
             this.MasterSecret = masterSecret;
+            this.IsTestEnvironment = isTestEnvironment;
         }
     }
 }
