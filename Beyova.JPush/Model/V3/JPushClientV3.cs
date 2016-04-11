@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Beyova;
+using Beyova.ExceptionSystem;
 
 namespace Beyova.JPush.V3
 {
@@ -220,7 +221,7 @@ namespace Beyova.JPush.V3
             }
             catch (Exception ex)
             {
-                throw ex.Handle("Failed to send push message.");
+                throw ex.Handle(request);
             }
             finally
             {
@@ -267,7 +268,7 @@ namespace Beyova.JPush.V3
                 }
                 catch (Exception ex)
                 {
-                    throw ex.Handle("Failed to QueryPushMessageStatus.");
+                    throw ex.Handle(messageIdCollection);
                 }
             }
 
@@ -298,7 +299,7 @@ namespace Beyova.JPush.V3
 
                 if (request.Notification == null && request.AppMessage == null)
                 {
-                    throw new ArgumentException("Both Notification and AppMessage are null.");
+                    throw new InvalidObjectException("request", reason: "Notification/AppMessage");
                 }
 
                 if (request.Notification != null)

@@ -38,8 +38,8 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Beyova.Common, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d55e8b6a979ee1b5, processorArchitecture=MSIL">
-      <HintPath>..\packages\Beyova.Common.2.31.2\lib\Beyova.Common.dll</HintPath>
+    <Reference Include="Beyova.Common, Version=3.0.0.0, Culture=neutral, PublicKeyToken=d55e8b6a979ee1b5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Beyova.Common.3.3.0\lib\Beyova.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -81,7 +81,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
