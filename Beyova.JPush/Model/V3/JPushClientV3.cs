@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Beyova;
 using Beyova.ExceptionSystem;
 
 namespace Beyova.JPush.V3
@@ -193,42 +191,37 @@ namespace Beyova.JPush.V3
         /// <exception cref="System.InvalidOperationException">Failed to send push message.</exception>
         public PushResponse SendPushMessage(PushMessageRequestV3 request)
         {
-            PushResponse result = new PushResponse();
-            WebResponse response = null;
-
             try
             {
                 var httpRequest = CreatePushRequest(request);
                 var responseContent = httpRequest.ReadResponseAsText(Encoding.UTF8);
 
-                JToken root = JToken.Parse(responseContent);
-                result.MessageId = root.SelectToken("msg_id").Value<string>();
-
-                var errorNode = root.SelectToken("error");
-
-                if (errorNode == null)
-                {
-                    result.SendIdentity = root.SelectToken("sendno").Value<string>();
-                    result.ResponseCode = PushResponseCode.Succeed;
-                }
-                else
-                {
-                    result.ResponseMessage = errorNode.SelectToken("message").Value<string>();
-                    result.ResponseCode = (PushResponseCode)errorNode.SelectToken("code").Value<int>();
-                }
-
-                return result;
+                return ParseResponse(responseContent);
             }
             catch (Exception ex)
             {
                 throw ex.Handle(request);
             }
-            finally
+        }
+
+        /// <summary>
+        /// Sends the push message asynchronously.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns>PushResponseCode.</returns>
+        /// <exception cref="System.InvalidOperationException">Failed to send push message.</exception>
+        public async Task<PushResponse> SendPushMessageAsync(PushMessageRequestV3 request)
+        {
+            try
             {
-                if (response != null)
-                {
-                    response.Close();
-                }
+                var httpRequest = CreatePushRequest(request);
+                var responseContent = await httpRequest.ReadResponseAsTextAsync(Encoding.UTF8);
+
+                return ParseResponse(responseContent);
+            }
+            catch (Exception ex)
+            {
+                throw ex.Handle(request);
             }
         }
 
@@ -419,6 +412,38 @@ namespace Beyova.JPush.V3
         protected static int GenerateSendIdentity()
         {
             return (int)(((DateTime.UtcNow - new DateTime(2014, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds) % Int32.MaxValue);
+        }
+
+        #endregion
+
+        #region Private Method
+
+        /// <summary>
+        /// Parse the response content into the <see cref="PushResponse"/>.
+        /// </summary>
+        /// <param name="responseContent">The response content.</param>
+        /// <returns>The <see cref="PushResponse"/>. </returns>
+        private static PushResponse ParseResponse(string responseContent)
+        {
+            PushResponse result = new PushResponse();
+
+            JToken root = JToken.Parse(responseContent);
+            result.MessageId = root.SelectToken("msg_id").Value<string>();
+
+            var errorNode = root.SelectToken("error");
+
+            if (errorNode == null)
+            {
+                result.SendIdentity = root.SelectToken("sendno").Value<string>();
+                result.ResponseCode = PushResponseCode.Succeed;
+            }
+            else
+            {
+                result.ResponseMessage = errorNode.SelectToken("message").Value<string>();
+                result.ResponseCode = (PushResponseCode)errorNode.SelectToken("code").Value<int>();
+            }
+
+            return result;
         }
 
         #endregion
