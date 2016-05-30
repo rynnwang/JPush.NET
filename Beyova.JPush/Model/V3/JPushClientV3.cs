@@ -425,25 +425,34 @@ namespace Beyova.JPush.V3
         /// <returns>The <see cref="PushResponse"/>. </returns>
         private static PushResponse ParseResponse(string responseContent)
         {
-            PushResponse result = new PushResponse();
-
-            JToken root = JToken.Parse(responseContent);
-            result.MessageId = root.SelectToken("msg_id").Value<string>();
-
-            var errorNode = root.SelectToken("error");
-
-            if (errorNode == null)
+            try
             {
-                result.SendIdentity = root.SelectToken("sendno").Value<string>();
-                result.ResponseCode = PushResponseCode.Succeed;
-            }
-            else
-            {
-                result.ResponseMessage = errorNode.SelectToken("message").Value<string>();
-                result.ResponseCode = (PushResponseCode)errorNode.SelectToken("code").Value<int>();
-            }
+                responseContent.CheckEmptyString("responseContent");
 
-            return result;
+                PushResponse result = new PushResponse();
+
+                JToken root = JToken.Parse(responseContent);
+                result.MessageId = root.SelectToken("msg_id")?.Value<string>();
+
+                var errorNode = root.SelectToken("error");
+
+                if (errorNode == null)
+                {
+                    result.SendIdentity = root.SelectToken("sendno").Value<string>();
+                    result.ResponseCode = PushResponseCode.Succeed;
+                }
+                else
+                {
+                    result.ResponseMessage = errorNode.SelectToken("message")?.Value<string>();
+                    result.ResponseCode = (PushResponseCode)errorNode.SelectToken("code").Value<int>();
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex.Handle(responseContent);
+            }
         }
 
         #endregion
