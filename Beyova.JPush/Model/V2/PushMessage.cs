@@ -27,7 +27,7 @@ namespace Beyova.JPush
         /// Gets or sets the customized value.
         /// </summary>
         /// <value>The customized value.</value>
-        public Dictionary<string, string> CustomizedValue { get; set; }
+        public Dictionary<string, object> CustomizedValue { get; set; }
 
         #region iOS only
 

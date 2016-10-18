@@ -34,14 +34,14 @@ namespace Beyova.JPush.V3
         /// </summary>
         /// <value>The customized values.</value>
         [JsonProperty(PropertyName = "extras", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, string> CustomizedValues { get; set; }
+        public Dictionary<string, object> CustomizedValues { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AndroidNotificationParameters" /> class.
         /// </summary>
         public AndroidNotificationParameters()
         {
-            this.CustomizedValues = new Dictionary<string, string>();
+            this.CustomizedValues = new Dictionary<string, object>();
         }
     }
 }

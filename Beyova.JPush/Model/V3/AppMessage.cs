@@ -37,7 +37,7 @@ namespace Beyova.JPush.V3
         /// </summary>
         /// <value>The customized value.</value>
         [JsonProperty(PropertyName = "extras", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, string> CustomizedValue { get; set; }
+        public Dictionary<string, object> CustomizedValue { get; set; }
 
         #endregion
 
