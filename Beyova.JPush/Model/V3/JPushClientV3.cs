@@ -401,7 +401,7 @@ namespace Beyova.JPush.V3
         /// <returns>System.String.</returns>
         protected static string GenerateQueryToken(string appKey, string masterSecret)
         {
-            return string.Format("{0}:{1}", appKey, masterSecret).ToBase64();
+            return string.Format("{0}:{1}", appKey, masterSecret).EncodeBase64();
         }
 
         /// <summary>
@@ -409,7 +409,7 @@ namespace Beyova.JPush.V3
         /// The total milliseconds value of offset from UTC now to UTC 2014 Jan 1st.
         /// </summary>
         /// <returns>System.Int32.</returns>
-        protected static int GenerateSendIdentity()
+        protected virtual int GenerateSendIdentity()
         {
             return (int)(((DateTime.UtcNow - new DateTime(2014, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds) % Int32.MaxValue);
         }
