@@ -17,10 +17,10 @@ namespace Beyova
         /// <param name="platformValue">The platform value.</param>
         /// <param name="value">The value.</param>
         /// <returns><c>true</c> if [contains] [the specified platform value]; otherwise, <c>false</c>.</returns>
-        public static bool Contains(this PushPlatform platformValue, PushPlatform value)
-        {
-            return ((int)platformValue & (int)value) > 0;
-        }
+        //public static bool Contains(this PushPlatform platformValue, PushPlatform value)
+        //{
+        //    return ((int)platformValue & (int)value) > 0;
+        //}
 
         /// <summary>
         /// To the push message request v3.

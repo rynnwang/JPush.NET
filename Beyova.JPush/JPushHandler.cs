@@ -180,7 +180,7 @@ namespace Beyova.JPush
                     {
                         var nowUtcTime = DateTime.UtcNow;
 
-                        for (var i = 0; i < this.pushMessageTrackingList.Count; )
+                        for (var i = 0; i < this.pushMessageTrackingList.Count;)
                         {
                             var one = this.pushMessageTrackingList[i];
                             if ((nowUtcTime - one.CreatedUtcStamp).TotalMinutes > pushMessageStatusTrackingLifeCycle)
@@ -460,7 +460,7 @@ namespace Beyova.JPush
             }
             catch (Exception ex)
             {
-                throw new InvalidOperationException("Failed to handle exception with specific delegate.", ex);
+                throw ex.Handle();
             }
         }
 

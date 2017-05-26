@@ -33,9 +33,9 @@ namespace Beyova.JPush.V3
     ///             var appKey = "1234567890abcdef"; // Your App Key from JPush
     ///             var masterSecret = "1234567890abcdef"; // Your Master Secret from JPush
     ///
-    ///             Dictionary<string, string> customizedValues = new Dictionary<string, string>();
+    ///             Dictionary<string, object> customizedValues = new Dictionary<string, object>();
     ///             customizedValues.Add("CK1", "CV1");
-    ///             customizedValues.Add("CK2", "CV2");
+    ///             customizedValues.Add("CK2", 2);
     ///
     ///             JPushClientV3 client = new JPushClientV3(appKey, masterSecret);
     ///
@@ -198,6 +198,10 @@ namespace Beyova.JPush.V3
 
                 return ParseResponse(responseContent);
             }
+            catch (HttpOperationException httpEx)
+            {
+                throw PushMessageException.FromHttpOperationException(httpEx) ?? httpEx as Exception;
+            }
             catch (Exception ex)
             {
                 throw ex.Handle(request);
@@ -218,6 +222,10 @@ namespace Beyova.JPush.V3
                 var responseContent = await httpRequest.ReadResponseAsTextAsync(Encoding.UTF8);
 
                 return ParseResponse(responseContent);
+            }
+            catch (HttpOperationException httpEx)
+            {
+                throw PushMessageException.FromHttpOperationException(httpEx) ?? httpEx as Exception;
             }
             catch (Exception ex)
             {
@@ -292,7 +300,7 @@ namespace Beyova.JPush.V3
 
                 if (request.Notification == null && request.AppMessage == null)
                 {
-                    throw new InvalidObjectException("request", reason: "Notification/AppMessage");
+                    throw ExceptionFactory.CreateInvalidObjectException(nameof(request), reason: "Notification/AppMessage");
                 }
 
                 if (request.Notification != null)
@@ -307,7 +315,7 @@ namespace Beyova.JPush.V3
 
                 jsonObject.Add(new JProperty("options", JObject.FromObject(CreateRequestOptions(request))));
 
-                httpRequest.FillData("POST", jsonObject.ToString());
+                httpRequest.FillData(HttpConstants.HttpMethod.Post, jsonObject.ToString());
             }
 
             return httpRequest;
@@ -347,7 +355,7 @@ namespace Beyova.JPush.V3
         {
             if (httpRequest != null)
             {
-                httpRequest.Headers[HttpRequestHeader.Authorization] = "Basic " + GenerateQueryToken(this.AppKey.SafeToString(), this.MasterSecret.SafeToString());
+                httpRequest.SetBasicAuthentication(this.AppKey, this.MasterSecret);
                 FillNetworkCredential(httpRequest);
             }
         }
@@ -427,7 +435,7 @@ namespace Beyova.JPush.V3
         {
             try
             {
-                responseContent.CheckEmptyString("responseContent");
+                responseContent.CheckEmptyString(nameof(responseContent));
 
                 PushResponse result = new PushResponse();
 

@@ -39,12 +39,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Beyova.Common, Version=3.0.0.0, Culture=neutral, PublicKeyToken=d55e8b6a979ee1b5, processorArchitecture=MSIL">
-      <HintPath>..\packages\Beyova.Common.3.10.0\lib\Beyova.Common.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Beyova.Common.3.13.4\lib\Beyova.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -57,27 +55,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extension.cs" />
-    <Compile Include="Model\V3\ConnectionString.cs" />
-    <Compile Include="Model\V3\Audience.cs" />
-    <Compile Include="Model\V3\AppMessage.cs" />
-    <Compile Include="Model\V3\Notification.cs" />
-    <Compile Include="Model\V3\WindowsPhoneNotificationParameters.cs" />
-    <Compile Include="Model\V3\iOSNotificationParameters.cs" />
-    <Compile Include="Model\V3\JPushClientV3.cs" />
+    <Compile Include="Model\NoDestinationReachedException.cs" />
+    <Compile Include="Model\PushMessageException.cs" />
+    <Compile Include="V3\ConnectionString.cs" />
+    <Compile Include="V3\Audience.cs" />
+    <Compile Include="V3\AppMessage.cs" />
+    <Compile Include="V3\Notification.cs" />
+    <Compile Include="V3\WindowsPhoneNotificationParameters.cs" />
+    <Compile Include="V3\iOSNotificationParameters.cs" />
+    <Compile Include="V3\JPushClientV3.cs" />
     <Compile Include="JPushHandler.cs" />
-    <Compile Include="Model\V2\JPushClient.cs" />
-    <Compile Include="Model\V2\MessageType.cs" />
+    <Compile Include="V2\JPushClient.cs" />
+    <Compile Include="V2\MessageType.cs" />
     <Compile Include="Model\PushMessageTracking.cs" />
-    <Compile Include="Model\V2\PushMessage.cs" />
-    <Compile Include="Model\V2\PushMessageRequest.cs" />
+    <Compile Include="V2\PushMessage.cs" />
+    <Compile Include="V2\PushMessageRequest.cs" />
     <Compile Include="Model\PushMessageStatus.cs" />
     <Compile Include="Model\PushPlatform.cs" />
     <Compile Include="Model\PushResponse.cs" />
     <Compile Include="Model\PushResponseCode.cs" />
-    <Compile Include="Model\V2\PushType.cs" />
-    <Compile Include="Model\V3\PushMessageRequestV3.cs" />
-    <Compile Include="Model\V3\AndroidNotificationParameters.cs" />
-    <Compile Include="Model\V3\PushTypeV3.cs" />
+    <Compile Include="V2\PushType.cs" />
+    <Compile Include="V3\PushMessageRequestV3.cs" />
+    <Compile Include="V3\AndroidNotificationParameters.cs" />
+    <Compile Include="V3\PushTypeV3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

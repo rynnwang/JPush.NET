@@ -91,7 +91,7 @@ namespace Beyova.JPush
                 }
             }
 
-            if (platform.Contains(PushPlatform.iOS))
+            if (platform.HasFlag(PushPlatform.iOS))
             {
                 Dictionary<string, object> iOSDictionary = new Dictionary<string, object>();
 
@@ -105,7 +105,7 @@ namespace Beyova.JPush
                 extra.Merge("ios", iOSDictionary);
             }
 
-            if (platform.Contains(PushPlatform.Android))
+            if (platform.HasFlag(PushPlatform.Android))
             {
                 if (!string.IsNullOrWhiteSpace(this.PushTitle))
                 {
