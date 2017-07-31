@@ -11,7 +11,7 @@ using Beyova.ProgrammingIntelligence;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyProduct("Beyova.JPush")]
 [assembly: AssemblyCulture("")]
-[assembly: BeyovaComponent("Beyova.JPush","2.3.1")]
+[assembly: BeyovaComponent("Beyova.JPush","2.3.2")]
 
 [assembly: AssemblyDescription(BeyovaPropertyConstants.AssemblyDescription)]
 [assembly: AssemblyCompany(BeyovaPropertyConstants.Company)]
